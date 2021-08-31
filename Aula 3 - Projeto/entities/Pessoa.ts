@@ -1,4 +1,4 @@
-class Pessoa {
+export class Pessoa {
     private Nome: string;
     private Idade: number;
 
@@ -39,16 +39,3 @@ class Pessoa {
     }
 }
 
-//  Início do Ciclo da Vida 
-const grazi = Pessoa.Nascimento('Grazi', 0);
-console.log(grazi);
-console.log(grazi.Fala());
-
-let i; 
-for (i = 0; i < 9; i++){
-    grazi.Envelhecer(1);    
-}
-
-console.log(grazi);
-
-console.log(grazi.Fala());
