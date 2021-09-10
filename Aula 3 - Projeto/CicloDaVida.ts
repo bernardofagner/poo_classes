@@ -23,7 +23,7 @@ class CicloDaVida {
             for (let meses = 1; meses <= 12; meses++){
 
                 for (let dias = 1; dias <= 30; dias++){
-
+                    pessoa.Trabalhar();
                 }
                 console.log(meses);
             }

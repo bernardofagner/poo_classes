@@ -59,13 +59,9 @@ export class Pessoa {
     }
 
     public Trabalhar(): string{
-        let dia = 1; 
-        let mes = 1;
-        const totalDiasNoMes = 30;
-        const totalMesesNoAno = 12; 
-
         const minSalario = 1; 
         const maxSalario = 100; 
+        let salarioRecebido = Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario); 
         
 
         if (this.Idade < 18) {
@@ -73,19 +69,20 @@ export class Pessoa {
         }
 
         if (this.Idade >= 18 && this.Idade < 60) {
+            
             console.log(`${this.Nome} pode trabalhar. Sua idade é de ${this.Idade} anos.`);
 
-            // A pessoa deve trabalhar todos os dias
-            do {
-                do {
-                    let salarioRecebido = Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario); 
-                    this.Dinheiro = this.Dinheiro + salarioRecebido;
-                    dia += 1;
-                    console.log(`${this.Nome} trabalhou pela ${dia}º vez e recebeu neste serviço R$${salarioRecebido},00.`);
-                } while (dia <= 30);
-                mes += 1;
-                dia = 1;
-            } while (mes <= 12);
+
+            // do {
+            //     do {
+            //         let salarioRecebido = Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario); 
+            //         this.Dinheiro = this.Dinheiro + salarioRecebido;
+            //         dia += 1;
+            //         console.log(`${this.Nome} trabalhou pela ${dia}º vez e recebeu neste serviço R$${salarioRecebido},00.`);
+            //     } while (dia <= 30);
+            //     mes += 1;
+            //     dia = 1;
+            // } while (mes <= 12);
 
         return `${this.Nome} agora tem um saldo total de R$${this.Dinheiro},00.`;
         }
