@@ -1,71 +1,119 @@
 "use strict";
 exports.__esModule = true;
 exports.Pessoa = void 0;
+var FaseDeCrescimento_1 = require("../enums/FaseDeCrescimento");
 var Pessoa = /** @class */ (function () {
     function Pessoa(nome, idade) {
         this.Nome = nome;
         this.Idade = idade;
         this.Dinheiro = 0;
     }
-    /*Design pattern: Método de fábrica (factory) */
     Pessoa.Nascimento = function (nome, idade) {
         return new Pessoa(nome, idade);
     };
-    /*Metodo possui 2 comportamentos padrão
-    1 - Realizar uma operação e retornar o resultado;
-    2 - Realizar uma operação sem retornar resultado; */
-    /*Métodos possuem gategorias
-    1 - Métodos de instância: Só podem ser usados, através de um objeto;
-    2 - Métodos estáticos: Existem o escopo da classe, ou seja, não dependem de instâncias para serem usados*/
-    Pessoa.prototype.Fases = function () {
-        /*Implementação para recem nascido*/
+    Pessoa.prototype.ObterNome = function () {
+        return this.Nome;
+    };
+    Pessoa.prototype.DefinirNome = function (nome) {
+        this.Nome = nome;
+    };
+    Pessoa.prototype.ObterIdade = function () {
+        return this.Idade;
+    };
+    Pessoa.prototype.DefinirIdade = function (idade) {
+        this.Idade = idade;
+    };
+    Pessoa.prototype.ObterFaseDeCrescimento = function () {
         if (this.Idade >= 0 && this.Idade < 1) {
-            return "Sou um beb\u00EA e tenho " + this.Idade + " anos.";
+            return FaseDeCrescimento_1.FaseDeCrescimento.Bebe;
         }
-        /*Implementação para criança de 1 a 10 anos*/
         if (this.Idade >= 1 && this.Idade < 10) {
-            return "Agora sou uma crian\u00E7a e tenho " + this.Idade + " anos.";
+            return FaseDeCrescimento_1.FaseDeCrescimento.Crianca;
         }
         if (this.Idade >= 10 && this.Idade < 18) {
-            return "Sou um adolescente, estou estudando! Tenho " + this.Idade + " anos.";
+            return FaseDeCrescimento_1.FaseDeCrescimento.Adolescente;
         }
-        if (this.Idade >= 18 && this.Idade < 25) {
-            return "J\u00E1 posso trabalhar, me tornei adulto! Tenho " + this.Idade + " anos.";
+        if (this.Idade >= 18 && this.Idade < 50) {
+            return FaseDeCrescimento_1.FaseDeCrescimento.Adulto;
         }
-        return 'Ainda não sei que fase da vida estou :(';
+        if (this.Idade >= 50 && this.Idade < 100) {
+            return FaseDeCrescimento_1.FaseDeCrescimento.Idoso;
+        }
+        return FaseDeCrescimento_1.FaseDeCrescimento.Default;
     };
     Pessoa.prototype.Envelhecer = function (anosDeVida) {
         this.Idade = this.Idade + anosDeVida;
     };
-    /* Trabalhar: é um método na classe Pessoa que deve adicionar um valor
-    aleatório entre 1$ e 50$ na propriedade Dinheiro da Pessoa, ou seja, sempre que
-    chamar o método Trabalhar, ela irá receber um valor entre 1$ e 50$.
-    */
     Pessoa.prototype.Trabalhar = function () {
-        // Math.random = Math.random() * (max - min) + min;
-        var maxSalario = 50;
+        var dia = 1;
+        var mes = 1;
+        var totalDiasNoMes = 30;
+        var totalMesesNoAno = 12;
         var minSalario = 1;
-        var salarioRecebido = Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario);
+        var maxSalario = 100;
         if (this.Idade < 18) {
-            return "Voc\u00EA ainda n\u00E3o pode trabalhar!";
+            return this.Nome + " ainda n\u00E3o pode trabalhar. Sua idade \u00E9 de " + this.Idade + " anos.";
         }
-        else {
-            // console.log('Agora você pode trabalhar! ')
-            this.Dinheiro = this.Dinheiro + salarioRecebido;
-            console.log("Voc\u00EA realizou um trabalho e recebeu pelo servi\u00E7o RS " + salarioRecebido);
+        if (this.Idade >= 18 && this.Idade < 60) {
+            console.log(this.Nome + " pode trabalhar. Sua idade \u00E9 de " + this.Idade + " anos.");
+            // A pessoa deve trabalhar todos os dias
+            do {
+                do {
+                    var salarioRecebido = Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario);
+                    this.Dinheiro = this.Dinheiro + salarioRecebido;
+                    dia += 1;
+                    console.log(this.Nome + " trabalhou pela " + dia + "\u00BA vez e recebeu neste servi\u00E7o R$" + salarioRecebido + ",00.");
+                } while (dia <= 30);
+                mes += 1;
+                dia = 1;
+            } while (mes <= 12);
+            return this.Nome + " agora tem um saldo total de R$" + this.Dinheiro + ",00.";
         }
-        return "O dinheiro TOTAL que voc\u00EA possui agora em sua conta \u00E9 R$ " + this.Dinheiro;
+        if (this.Idade >= 60 && this.Idade < 100) {
+            return this.Nome + " se aposentou.";
+        }
     };
     Pessoa.prototype.Mercado = function () {
-        var gastosSupermercado = Math.ceil(Math.random() * 100);
-        if (this.Dinheiro < gastosSupermercado) {
-            console.log("O valor da compra foi de R$ " + gastosSupermercado + ". \n Infelizmente voc\u00EA n\u00E3o pode efetuar esta compra. Seu saldo \u00E9 insuficiente.");
+        var maxGastos = 100;
+        var minGastos = 50;
+        var passo = 5;
+        var gastosSupermercado = Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);
+        var countEmprestimos = 0;
+        // A pessoa deve ter dinheiro o suficiente para fazer compras pelo menos uma vez a cada 5 dias,
+        // incluindo finais de semana 
+        for (var dia = 0; dia <= 30; dia += passo) {
+            if (this.Dinheiro > gastosSupermercado) {
+                this.Dinheiro = this.Dinheiro - gastosSupermercado;
+                console.log(this.Nome + " foi ao mercado. O valor da compra foi de R$ " + gastosSupermercado + ",00.");
+            }
+            else {
+                this.Emprestimo();
+                countEmprestimos += 1;
+                console.log(this.Nome + " foi ao mercado. Como a sua compra teve um valor de " + gastosSupermercado + " e ela possuia apenas\n                " + this.Dinheiro + ", solicitou a sua m\u00E3e um empr\u00E9stimo de $200. Agora ela tem um total de " + countEmprestimos + " empr\u00E9stimo(s) realizados.");
+                this.Dinheiro = this.Dinheiro - gastosSupermercado;
+            }
+            return "O saldo atual, portanto, \u00E9 de R$ " + this.Dinheiro + ",00.";
         }
-        else {
-            this.Dinheiro = this.Dinheiro - gastosSupermercado;
-        }
-        return "O valor da sua compra no mercado foi de R$ " + gastosSupermercado + ". O valor atual do seu saldo \u00E9 de R$ " + this.Dinheiro;
+    };
+    Pessoa.prototype.Emprestimo = function () {
+        var valorEmprestimo = 200;
+        this.Dinheiro = this.Dinheiro + valorEmprestimo;
+    };
+    Pessoa.prototype.Caridade = function () {
+        var saldoMinimoParaCaridade = 300;
+        if (this.Dinheiro > saldoMinimoParaCaridade)
+            this.Dinheiro = this.Dinheiro - 50;
+        return "Voc\u00EA doou dinheiro \u00E0 caridade. Seu saldo atual \u00E9 de " + this.Dinheiro;
     };
     return Pessoa;
 }());
 exports.Pessoa = Pessoa;
+// Exemplo forEach
+// function triploArrayOriginal(){
+//     const entrada = [1,2,3,4];
+//     const saida = entrada.map(numero => {
+//         return numero*3;
+//     })
+//     console.log(saida);
+// }
+// triploArrayOriginal()
