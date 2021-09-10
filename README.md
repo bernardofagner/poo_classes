@@ -33,6 +33,22 @@ Métodos possuem categorias:
 Método Get: Obtém alguma informação
 Método Set: Define ou altera alguma informação
 
+# Classes
+Instanciar uma classe: o termo instanciar uma classe significa que estamos criando 
+um objeto com a estrutura da classe. É o mesmo que dizer 'criar um objeto' daquela
+classe. Para instanciar uma classe utilizamos a palavra reservada 'new' seguido pelo
+nome da classe e invocando o construtor padrão '()' da classe.
+
+# Estrutura de dados
+Estruturação de dados bem definida conforme critérios específicos. Ex: um array, uma classe, uma structure. 
+
+# Array 
+* Elementos
+* Índices
+* Tamanho 
+
+Métodos os funções para se trabalhar com arrays. 
+
 # Exercícios
 ## Exercício 01
 1. Criar um método na classe Pessoa chamado trabalhar que deve adicionar um valor aleatório entre 1 e 50 na propriedade dinheiro da pessoa (sempre que chamar o método trabalhar, ela irá ganhar um valor de 1 a 50). A última instrução do método deve exibir uma mensagem  da quantia do valor recebido após o trabalho. A pessoa só pode trabalhar se a idade for igual ou maior que 18 anos. Se a pessoa tiver menos de 18 anos deve se exibir uma mensagem que ela (ainda) não pode  trabalhar. 
@@ -64,3 +80,5 @@ Método Set: Define ou altera alguma informação
 
 4. Sempre que a grazi pegar dinheiro emprestado, ela deve armazenar quantas vezes ela pegou dinheiro emprestado e sempre que ela pagar a mãe dela o dinheiro emprestado, ela deve remover 1 deste contador de dinheiro emprestado. 
 
+
+ 
