@@ -81,4 +81,115 @@ Métodos os funções para se trabalhar com arrays.
 4. Sempre que a grazi pegar dinheiro emprestado, ela deve armazenar quantas vezes ela pegou dinheiro emprestado e sempre que ela pagar a mãe dela o dinheiro emprestado, ela deve remover 1 deste contador de dinheiro emprestado. 
 
 
+
+    <!-- private CicloDaPessoa(pessoa: Pessoa): void {
+        let vivo = true; 
+
+        while (vivo) {
+
+            for (let meses = 1; meses <= 12; meses++){
+                for (let dias = 1; dias <= 30; dias++){
+                    pessoa.Trabalhar();
+                }
+                // console.log(meses);
+            }
+            pessoa.Envelhecer(1);
+            if(pessoa.ObterIdade() > 100){
+                vivo = false;
+                console.log(`A ${pessoa.ObterNome()} encerrou o ciclo da vida.`);
+            }
+        }
+    } -->
+
+
+    **Pessoa**
+    ```
+       public Envelhecer(anosDeVida: number): void {
+        this.Idade = this.Idade + anosDeVida;
+    }
+
+    public Trabalhar(): string{
+        const minSalario = 1; 
+        const maxSalario = 100; 
+        let salarioRecebido = Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario); 
+        
+
+        if (this.Idade < 18) {
+            return `${this.Nome} ainda não pode trabalhar. Sua idade é de ${this.Idade} anos.`
+        }
+
+        if (this.Idade >= 18 && this.Idade < 60) {
+            
+            console.log(`${this.Nome} pode trabalhar. Sua idade é de ${this.Idade} anos.`);
+
+
+            // do {
+            //     do {
+            //         let salarioRecebido = Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario); 
+            //         this.Dinheiro = this.Dinheiro + salarioRecebido;
+            //         dia += 1;
+            //         console.log(`${this.Nome} trabalhou pela ${dia}º vez e recebeu neste serviço R$${salarioRecebido},00.`);
+            //     } while (dia <= 30);
+            //     mes += 1;
+            //     dia = 1;
+            // } while (mes <= 12);
+
+        return `${this.Nome} agora tem um saldo total de R$${this.Dinheiro},00.`;
+        }
+
+        if (this.Idade >=60 && this.Idade < 100){
+            return `${this.Nome} se aposentou.`;
+        }
+    }
+
+    public Mercado(): string {
+        const maxGastos = 100; 
+        const minGastos = 50;
+        const passo = 5;
+        let gastosSupermercado = Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);
+        let countEmprestimos = 0;
+
+        // A pessoa deve ter dinheiro o suficiente para fazer compras pelo menos uma vez a cada 5 dias,
+        // incluindo finais de semana 
+        for (let dia = 0; dia <= 30; dia+=passo){
+            if(this.Dinheiro > gastosSupermercado){
+                this.Dinheiro = this.Dinheiro - gastosSupermercado;
+                console.log(`${this.Nome} foi ao mercado. O valor da compra foi de R$ ${gastosSupermercado},00.`);
+            }
+
+            else {
+                this.Emprestimo();
+                countEmprestimos += 1;
+
+                console.log(`${this.Nome} foi ao mercado. Como a sua compra teve um valor de ${gastosSupermercado} e ela possuia apenas
+                ${this.Dinheiro}, solicitou a sua mãe um empréstimo de $200. Agora ela tem um total de ${countEmprestimos} empréstimo(s) realizados.`);
+                        
+                this.Dinheiro = this.Dinheiro - gastosSupermercado;
+            }
+
+            return `O saldo atual, portanto, é de R$ ${this.Dinheiro},00.`;
+
+        }
+    }  
+
+    public Emprestimo(): void {
+        const valorEmprestimo = 200;
+        this.Dinheiro = this.Dinheiro + valorEmprestimo;  
+    }
+
+    public Caridade(): string {
+        const saldoMinimoParaCaridade = 300; 
+        if(this.Dinheiro > saldoMinimoParaCaridade)
+            this.Dinheiro = this.Dinheiro - 50;
+            return `Você doou dinheiro à caridade. Seu saldo atual é de ${this.Dinheiro}`;
+        }
+    }
+```
+
+
+```
+                    autorizadoATrabalhar && pessoa.Trabalhar();
+```
+
+
  
