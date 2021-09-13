@@ -2,12 +2,12 @@ import { FaseDeCrescimento } from "../enums/FaseDeCrescimento";
 export class Pessoa {
     private Nome: string;
     private Idade: number;
-    private Dinheiro: number;
+    private Carteira: number;
 
     private constructor(nome: string, idade: number) {
         this.Nome = nome;
         this.Idade = idade;
-        this.Dinheiro = 0; 
+        this.Carteira = 0; 
     }
 
     public static Nascimento(nome: string, idade: number): Pessoa {
@@ -31,7 +31,11 @@ export class Pessoa {
     }
 
     public DefinirDinheiro(dinheiro: number): void {
-        this.Dinheiro = this.Dinheiro + dinheiro;
+        this.Carteira = this.Carteira + dinheiro;
+    }
+
+    public ObterDinheiro(): number {
+        return this.Carteira;
     }
 
     public ObterFaseDeCrescimento(): FaseDeCrescimento {
@@ -69,43 +73,23 @@ export class Pessoa {
         return Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario); 
     }
 
-    public Mercado(): string {
-        const maxGastos = 100; 
-        const minGastos = 50;
+    public FazerCompra(): number { 
+        const maxGastos = 300; 
+        const minGastos = 100;  
 
-        let gastosSupermercado = Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);
-        let countEmprestimos = 0;
-
-
-            if(this.Dinheiro > gastosSupermercado){
-                this.Dinheiro = this.Dinheiro - gastosSupermercado;
-                console.log(`${this.Nome} foi ao mercado. O valor da compra foi de R$ ${gastosSupermercado},00.`);
-            }
-
-            else {
-                this.Emprestimo();
-                countEmprestimos += 1;
-
-                console.log(`${this.Nome} foi ao mercado. Como a sua compra teve um valor de ${gastosSupermercado} e ela possuia apenas
-                ${this.Dinheiro}, solicitou a sua mãe um empréstimo de $200. Agora ela tem um total de ${countEmprestimos} empréstimo(s) realizados.`);
-                        
-                this.Dinheiro = this.Dinheiro - gastosSupermercado;
-            }
-
-            return `O saldo atual, portanto, é de R$ ${this.Dinheiro},00.`;
-
+        return Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);        
     }  
 
     public Emprestimo(): void {
         const valorEmprestimo = 200;
-        this.Dinheiro = this.Dinheiro + valorEmprestimo;  
+        this.Carteira = this.Carteira + valorEmprestimo;  
     }
 
     public Caridade(): string {
         const saldoMinimoParaCaridade = 300; 
-        if(this.Dinheiro > saldoMinimoParaCaridade)
-            this.Dinheiro = this.Dinheiro - 50;
-            return `Você doou dinheiro à caridade. Seu saldo atual é de ${this.Dinheiro}`;
+        if(this.Carteira > saldoMinimoParaCaridade)
+            this.Carteira = this.Carteira - 50;
+            return `Você doou dinheiro à caridade. Seu saldo atual é de ${this.Carteira}`;
             // retornar o valor da caridade
         }
     }

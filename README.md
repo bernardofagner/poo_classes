@@ -66,7 +66,7 @@ Métodos os funções para se trabalhar com arrays.
 7. Se agora a pessoa já for maior de idade, chamar o método ir ao mercado. 
 
 ## Exercício 02
-1. Quando a pessoa tiver 18 anos ou mais ela precisa ter uma rotina mensal de trabalho e compras. Considerando que o mês tem 30 dias, a pessoa deve trabalhar todos os dias. -- OK! --
+1. Quando a pessoa tiver 18 anos ou mais ela precisa ter uma rotina mensal de trabalho e compras. Considerando que o mês tem 30 dias, a pessoa deve trabalhar todos os dias. 
 
 2. Ela deve ter dinheiro o suficiente para fazer compras pelo menos uma vez a cada 5 dias, incluindo finais de semana.
 

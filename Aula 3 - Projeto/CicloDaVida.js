@@ -10,16 +10,9 @@ var CicloDaVida = /** @class */ (function () {
     };
     CicloDaVida.prototype.CicloDaPessoa = function (pessoa) {
         var vivo = true;
-        var autorizadoATrabalhar = false;
         while (vivo) {
-            autorizadoATrabalhar = this.ValidarIdadeParaTrabalhar(pessoa.ObterIdade());
-            for (var meses = 1; meses <= 2; meses++) {
-                for (var dias = 1; dias <= 30; dias++) {
-                    if (autorizadoATrabalhar) {
-                        var salario = pessoa.Trabalhar();
-                        console.log(pessoa.DefinirDinheiro(salario));
-                    }
-                }
+            if (this.ValidarFaseAdulta(pessoa.ObterIdade())) {
+                this.FaseDeVidaAdulta(pessoa);
             }
             pessoa.Envelhecer(1);
             if (pessoa.ObterIdade() > 20) {
@@ -28,7 +21,42 @@ var CicloDaVida = /** @class */ (function () {
             }
         }
     };
-    CicloDaVida.prototype.ValidarIdadeParaTrabalhar = function (idade) {
+    CicloDaVida.prototype.FaseDeVidaAdulta = function (pessoa) {
+        var dinheiroEmprestadoMae = 0;
+        for (var meses = 1; meses <= 2; meses++) {
+            console.log(pessoa.ObterDinheiro());
+            for (var dias = 1; dias <= 30; dias++) {
+                // Pessoa trabalha:
+                var salario = pessoa.Trabalhar();
+                pessoa.DefinirDinheiro(salario);
+                console.log("Recebi R$ " + salario + " no trabalho realizado.");
+                // Verifica a possibilidade de pagamento do empréstimo
+                if (dinheiroEmprestadoMae > 0 && pessoa.ObterDinheiro() >= dinheiroEmprestadoMae) {
+                    console.log("Pagando o empr\u00E9stimo de: R$ " + dinheiroEmprestadoMae);
+                    pessoa.DefinirDinheiro(-dinheiroEmprestadoMae);
+                }
+                // console.log(salario);
+                // Pessoa faz compra: 
+                if (dias % 5 === 0) {
+                    var valorDaCompra = pessoa.FazerCompra();
+                    if (pessoa.ObterDinheiro() > valorDaCompra) {
+                        console.log("Antes da compra tenho: R$ " + pessoa.ObterDinheiro());
+                        pessoa.DefinirDinheiro(-valorDaCompra);
+                        console.log("Realizei uma compra de R$ " + valorDaCompra + ".");
+                        console.log("Depois da compra tenho: R$ " + pessoa.ObterDinheiro());
+                    }
+                    else {
+                        dinheiroEmprestadoMae += 200;
+                        console.log("Pegando o empr\u00E9stimo de: R$ " + dinheiroEmprestadoMae);
+                        pessoa.DefinirDinheiro(200);
+                        pessoa.DefinirDinheiro(-valorDaCompra);
+                        console.log("Realizei uma compra de R$ " + valorDaCompra + ".");
+                    }
+                }
+            }
+        }
+    };
+    CicloDaVida.prototype.ValidarFaseAdulta = function (idade) {
         if (idade >= 18 && idade <= 60) {
             return true;
         }

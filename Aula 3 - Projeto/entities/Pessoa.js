@@ -6,7 +6,7 @@ var Pessoa = /** @class */ (function () {
     function Pessoa(nome, idade) {
         this.Nome = nome;
         this.Idade = idade;
-        this.Dinheiro = 0;
+        this.Carteira = 0;
     }
     Pessoa.Nascimento = function (nome, idade) {
         return new Pessoa(nome, idade);
@@ -24,7 +24,10 @@ var Pessoa = /** @class */ (function () {
         this.Idade = idade;
     };
     Pessoa.prototype.DefinirDinheiro = function (dinheiro) {
-        this.Dinheiro = this.Dinheiro + dinheiro;
+        this.Carteira = this.Carteira + dinheiro;
+    };
+    Pessoa.prototype.ObterDinheiro = function () {
+        return this.Carteira;
     };
     Pessoa.prototype.ObterFaseDeCrescimento = function () {
         if (this.Idade >= 0 && this.Idade < 1) {
@@ -52,32 +55,20 @@ var Pessoa = /** @class */ (function () {
         var maxSalario = 100;
         return Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario);
     };
-    Pessoa.prototype.Mercado = function () {
-        var maxGastos = 100;
-        var minGastos = 50;
-        var gastosSupermercado = Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);
-        var countEmprestimos = 0;
-        if (this.Dinheiro > gastosSupermercado) {
-            this.Dinheiro = this.Dinheiro - gastosSupermercado;
-            console.log(this.Nome + " foi ao mercado. O valor da compra foi de R$ " + gastosSupermercado + ",00.");
-        }
-        else {
-            this.Emprestimo();
-            countEmprestimos += 1;
-            console.log(this.Nome + " foi ao mercado. Como a sua compra teve um valor de " + gastosSupermercado + " e ela possuia apenas\n                " + this.Dinheiro + ", solicitou a sua m\u00E3e um empr\u00E9stimo de $200. Agora ela tem um total de " + countEmprestimos + " empr\u00E9stimo(s) realizados.");
-            this.Dinheiro = this.Dinheiro - gastosSupermercado;
-        }
-        return "O saldo atual, portanto, \u00E9 de R$ " + this.Dinheiro + ",00.";
+    Pessoa.prototype.FazerCompra = function () {
+        var maxGastos = 400;
+        var minGastos = 200;
+        return Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);
     };
     Pessoa.prototype.Emprestimo = function () {
         var valorEmprestimo = 200;
-        this.Dinheiro = this.Dinheiro + valorEmprestimo;
+        this.Carteira = this.Carteira + valorEmprestimo;
     };
     Pessoa.prototype.Caridade = function () {
         var saldoMinimoParaCaridade = 300;
-        if (this.Dinheiro > saldoMinimoParaCaridade)
-            this.Dinheiro = this.Dinheiro - 50;
-        return "Voc\u00EA doou dinheiro \u00E0 caridade. Seu saldo atual \u00E9 de " + this.Dinheiro;
+        if (this.Carteira > saldoMinimoParaCaridade)
+            this.Carteira = this.Carteira - 50;
+        return "Voc\u00EA doou dinheiro \u00E0 caridade. Seu saldo atual \u00E9 de " + this.Carteira;
         // retornar o valor da caridade
     };
     return Pessoa;
