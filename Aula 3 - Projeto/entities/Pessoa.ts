@@ -30,11 +30,11 @@ export class Pessoa {
         this.Idade = idade;
     }
 
-    public DefinirDinheiro(dinheiro: number): void {
+    public DefinirSaldoCarteira(dinheiro: number): void {
         this.Carteira = this.Carteira + dinheiro;
     }
 
-    public ObterDinheiro(): number {
+    public ObterSaldoCarteira(): number {
         return this.Carteira;
     }
 
@@ -73,9 +73,9 @@ export class Pessoa {
         return Math.ceil(Math.random() * (maxSalario - minSalario) + minSalario); 
     }
 
-    public FazerCompra(): number { 
-        const maxGastos = 300; 
-        const minGastos = 100;  
+    public CalculaValorDaCompra(): number { 
+        const maxGastos = 50; 
+        const minGastos = 10;  
 
         return Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);        
     }  

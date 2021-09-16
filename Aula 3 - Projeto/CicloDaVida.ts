@@ -16,7 +16,7 @@ class CicloDaVida {
             
             pessoa.Envelhecer(1);
 
-            if(pessoa.ObterIdade() > 20){
+            if(pessoa.ObterIdade() > 18){
                 vivo = false;
                 console.log(`A ${pessoa.ObterNome()} encerrou o ciclo da vida.`);
             }
@@ -24,43 +24,79 @@ class CicloDaVida {
     }
 
     private FaseDeVidaAdulta(pessoa: Pessoa): void {
-        let dinheiroEmprestadoMae = 0; 
+        let dinheiroTotalEmprestadoPelaMae = 0; 
+        let countQuantidadeEmprestimos = 0; 
 
-        for (let meses = 1; meses <= 2; meses++){
-            console.log(pessoa.ObterDinheiro());
+        for (let meses = 1; meses <= 1; meses++){
+            console.log(pessoa.ObterSaldoCarteira());
 
-            for (let dias = 1; dias <= 30; dias++){ 
-                // Pessoa trabalha:
+            for (let dias = 1; dias <= 10; dias++){ 
                 let salario = pessoa.Trabalhar();
-                pessoa.DefinirDinheiro(salario);
-                console.log(`Recebi R$ ${salario} no trabalho realizado.`);
+                const valorDoEmprestimo = 200; 
+                pessoa.DefinirSaldoCarteira(salario);
+                console.log(`[Idade: ${pessoa.ObterIdade()} anos] [Mês: ${meses}] [Dia: ${dias}] [Salário recebido: R$${salario}].`);
 
                 // Verifica a possibilidade de pagamento do empréstimo
-                if (dinheiroEmprestadoMae > 0 && pessoa.ObterDinheiro() >= dinheiroEmprestadoMae){
-                    console.log(`Pagando o empréstimo de: R$ ${dinheiroEmprestadoMae}`);
-                    pessoa.DefinirDinheiro(-dinheiroEmprestadoMae);
+                if (dinheiroTotalEmprestadoPelaMae > 0 && pessoa.ObterSaldoCarteira() >= dinheiroTotalEmprestadoPelaMae){
+                    console.log(`O saldo atual é de R$${pessoa.ObterSaldoCarteira()}.`);
+                    
+                    pessoa.DefinirSaldoCarteira(-dinheiroTotalEmprestadoPelaMae);
+
+                    console.log('');
+                    console.log(`É possível pagar um empréstimo de R$${valorDoEmprestimo}. O saldo pós pagamento é de R$${pessoa.ObterSaldoCarteira()}`);
+                    countQuantidadeEmprestimos -= 1; 
+                    
+                    if(countQuantidadeEmprestimos === 0){
+                        console.log('Não há mais empréstimos a serem pagos!');
+                    }
+                    else{
+                        console.log(`Ainda há ${countQuantidadeEmprestimos} a serem pagos, ou seja, R${dinheiroTotalEmprestadoPelaMae}.`);
+                    }
+
+                    console.log('');
                 }
                 // console.log(salario);
 
                 // Pessoa faz compra: 
                 if(dias%5 === 0){
-                    const valorDaCompra = pessoa.FazerCompra();
+                    const valorDaCompra = pessoa.CalculaValorDaCompra(); 
+                    let salarioAntesDaCompra = pessoa.ObterSaldoCarteira(); 
+                    console.log(`Salário acumulado na carteira: R$${salarioAntesDaCompra}`);
 
-                    if(pessoa.ObterDinheiro() > valorDaCompra) {
-                        console.log(`Antes da compra tenho: R$ ${pessoa.ObterDinheiro()}`);
-                        pessoa.DefinirDinheiro(-valorDaCompra);
-                        console.log(`Realizei uma compra de R$ ${valorDaCompra}.`);
-                        console.log(`Depois da compra tenho: R$ ${pessoa.ObterDinheiro()}`);
+                    console.log('');
+                    console.log(' --------------------- IDA AO MERCADO ---------------------');
+
+                    if(salarioAntesDaCompra >= valorDaCompra) {
+                        pessoa.DefinirSaldoCarteira(-valorDaCompra);
+                        console.log(`O valor calculado para a realização desta compra é de R$${valorDaCompra}.`);
+                        console.log(`Compra efetivada com sucesso. Saldo pós compra: [R$${salarioAntesDaCompra} - ${valorDaCompra} = R$ ${pessoa.ObterSaldoCarteira()}]`);
                     }
                     else {                        
-                        dinheiroEmprestadoMae += 200;
-                        console.log(`Pegando o empréstimo de: R$200`);
+                        console.log(`Saldo insuficiente. O cálculo do valor da compra desejada é de R$${valorDaCompra}.`);
+                        dinheiroTotalEmprestadoPelaMae += valorDoEmprestimo;
+                        countQuantidadeEmprestimos += 1; 
+                        let saldoAposEmprestimo = pessoa.DefinirSaldoCarteira(valorDoEmprestimo);
 
-                        pessoa.DefinirDinheiro(200);
-                        pessoa.DefinirDinheiro(-valorDaCompra);  
-                        console.log(`Realizei uma compra de R$ ${valorDaCompra}.`);                      
+                        console.log(`Portanto, um empréstimo de R$${valorDoEmprestimo} é realizado, totalizando um total de ${countQuantidadeEmprestimos} empréstimo(s) feitos.`);
+                        console.log(`Saldo atualizado pós empréstimo: [R$${pessoa.ObterSaldoCarteira()}]`); 
+                        
+                        if(pessoa.ObterSaldoCarteira() >= valorDaCompra){
+                            pessoa.DefinirSaldoCarteira(-valorDaCompra); 
+                            console.log(`Desta forma, foi possível realizar a compra. O saldo atual é de: [R$${pessoa.ObterSaldoCarteira()}] `);
+                        }
+                        else{
+                            pessoa.DefinirSaldoCarteira(valorDoEmprestimo);
+
+                            dinheiroTotalEmprestadoPelaMae += valorDoEmprestimo;
+                            countQuantidadeEmprestimos += 1; 
+
+                            console.log(`Ainda não foi possível realizar a compra. Outro empréstimo foi efetuado.`);
+                            console.log(`Há um total de ${countQuantidadeEmprestimos} empréstimos adquiridos, ou seja, R$${dinheiroTotalEmprestadoPelaMae} em dívida.`); 
+
+                        }
                     }
-
+                    console.log('------------------------------------------------------------');
+                    console.log('');
                 }
             }
         } 
