@@ -57,19 +57,15 @@ var Pessoa = /** @class */ (function () {
     };
     Pessoa.prototype.CalculaValorDaCompra = function () {
         var maxGastos = 50;
-        var minGastos = 10;
+        var minGastos = 100;
         return Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);
     };
     Pessoa.prototype.Emprestimo = function () {
         var valorEmprestimo = 200;
         this.Carteira = this.Carteira + valorEmprestimo;
     };
-    Pessoa.prototype.Caridade = function () {
-        var saldoMinimoParaCaridade = 300;
-        if (this.Carteira > saldoMinimoParaCaridade)
-            this.Carteira = this.Carteira - 50;
-        return "Voc\u00EA doou dinheiro \u00E0 caridade. Seu saldo atual \u00E9 de " + this.Carteira;
-        // retornar o valor da caridade
+    Pessoa.prototype.Caridade = function (dinheiro) {
+        return this.Carteira = this.Carteira - dinheiro;
     };
     return Pessoa;
 }());

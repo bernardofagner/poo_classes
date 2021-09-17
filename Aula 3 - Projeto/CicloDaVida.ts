@@ -26,11 +26,13 @@ class CicloDaVida {
     private FaseDeVidaAdulta(pessoa: Pessoa): void {
         let dinheiroTotalEmprestadoPelaMae = 0; 
         let countQuantidadeEmprestimos = 0; 
+        const salarioMinimoParaCaridade = 300;
+        const dinheiroCaridade = 50;  
 
         for (let meses = 1; meses <= 1; meses++){
             console.log(pessoa.ObterSaldoCarteira());
 
-            for (let dias = 1; dias <= 10; dias++){ 
+            for (let dias = 1; dias <= 31; dias++){ 
                 let salario = pessoa.Trabalhar();
                 const valorDoEmprestimo = 200; 
                 pessoa.DefinirSaldoCarteira(salario);
@@ -55,49 +57,62 @@ class CicloDaVida {
 
                     console.log('');
                 }
-                // console.log(salario);
 
-                // Pessoa faz compra: 
-                if(dias%5 === 0){
-                    const valorDaCompra = pessoa.CalculaValorDaCompra(); 
-                    let salarioAntesDaCompra = pessoa.ObterSaldoCarteira(); 
-                    console.log(`Salário acumulado na carteira: R$${salarioAntesDaCompra}`);
-
+                // CHAMAR O MÉTODO CARIDADE
+                if(dias%30 === 0){
                     console.log('');
-                    console.log(' --------------------- IDA AO MERCADO ---------------------');
+                    console.log(' ----------------------- CARIDADE -----------------------');
 
-                    if(salarioAntesDaCompra >= valorDaCompra) {
-                        pessoa.DefinirSaldoCarteira(-valorDaCompra);
-                        console.log(`O valor calculado para a realização desta compra é de R$${valorDaCompra}.`);
-                        console.log(`Compra efetivada com sucesso. Saldo pós compra: [R$${salarioAntesDaCompra} - ${valorDaCompra} = R$ ${pessoa.ObterSaldoCarteira()}]`);
+                    if(pessoa.ObterSaldoCarteira() >= salarioMinimoParaCaridade){
+                        let saldoAntesDaCaridade = pessoa.ObterSaldoCarteira();
+                        pessoa.Caridade(dinheiroCaridade);
+                        console.log(`Você doou R$${dinheiroCaridade} à caridade. Seu saldo antes da caridade era de R$${saldoAntesDaCaridade} e agora você possui R$${pessoa.ObterSaldoCarteira()}.`);
                     }
-                    else {                        
-                        console.log(`Saldo insuficiente. O cálculo do valor da compra desejada é de R$${valorDaCompra}.`);
-                        dinheiroTotalEmprestadoPelaMae += valorDoEmprestimo;
-                        countQuantidadeEmprestimos += 1; 
-                        let saldoAposEmprestimo = pessoa.DefinirSaldoCarteira(valorDoEmprestimo);
+                    
+                    console.log(' --------------------------------------------------------');
+                    console.log('');
+                // REALIZAÇÃO DE COMPRAS
+                    if(dias%5 === 0){
+                        const valorDaCompra = pessoa.CalculaValorDaCompra(); 
+                        let salarioAntesDaCompra = pessoa.ObterSaldoCarteira(); 
+                        console.log(`Salário acumulado na carteira: R$${salarioAntesDaCompra}`);
 
-                        console.log(`Portanto, um empréstimo de R$${valorDoEmprestimo} é realizado, totalizando um total de ${countQuantidadeEmprestimos} empréstimo(s) feitos.`);
-                        console.log(`Saldo atualizado pós empréstimo: [R$${pessoa.ObterSaldoCarteira()}]`); 
-                        
-                        if(pessoa.ObterSaldoCarteira() >= valorDaCompra){
-                            pessoa.DefinirSaldoCarteira(-valorDaCompra); 
-                            console.log(`Desta forma, foi possível realizar a compra. O saldo atual é de: [R$${pessoa.ObterSaldoCarteira()}] `);
+                        console.log('');
+                        console.log(' --------------------- IDA AO MERCADO ---------------------');
+
+                        if(salarioAntesDaCompra >= valorDaCompra) {
+                            pessoa.DefinirSaldoCarteira(-valorDaCompra);
+                            console.log(`O valor calculado para a realização desta compra é de R$${valorDaCompra}.`);
+                            console.log(`Compra efetivada com sucesso. Saldo pós compra: [R$${salarioAntesDaCompra} - R$${valorDaCompra} = R$ ${pessoa.ObterSaldoCarteira()}]`);
                         }
-                        else{
-                            pessoa.DefinirSaldoCarteira(valorDoEmprestimo);
-
+                        else {                        
+                            console.log(`Saldo insuficiente. O cálculo do valor da compra desejada é de R$${valorDaCompra}.`);
                             dinheiroTotalEmprestadoPelaMae += valorDoEmprestimo;
                             countQuantidadeEmprestimos += 1; 
+                            let saldoAposEmprestimo = pessoa.DefinirSaldoCarteira(valorDoEmprestimo);
 
-                            console.log(`Ainda não foi possível realizar a compra. Outro empréstimo foi efetuado.`);
-                            console.log(`Há um total de ${countQuantidadeEmprestimos} empréstimos adquiridos, ou seja, R$${dinheiroTotalEmprestadoPelaMae} em dívida.`); 
+                            console.log(`Portanto, um empréstimo de R$${valorDoEmprestimo} é realizado, totalizando um total de ${countQuantidadeEmprestimos} empréstimo(s) feitos.`);
+                            console.log(`Saldo atualizado pós empréstimo: [R$${pessoa.ObterSaldoCarteira()}]`); 
+                            
+                            if(pessoa.ObterSaldoCarteira() >= valorDaCompra){
+                                pessoa.DefinirSaldoCarteira(-valorDaCompra); 
+                                console.log(`Desta forma, foi possível realizar a compra. O saldo atual é de: [R$${pessoa.ObterSaldoCarteira()}] `);
+                            }
+                            else{
+                                pessoa.DefinirSaldoCarteira(valorDoEmprestimo);
 
+                                dinheiroTotalEmprestadoPelaMae += valorDoEmprestimo;
+                                countQuantidadeEmprestimos += 1; 
+
+                                console.log(`Ainda não foi possível realizar a compra. Outro empréstimo foi efetuado.`);
+                                console.log(`Há um total de ${countQuantidadeEmprestimos} empréstimos adquiridos, ou seja, R$${dinheiroTotalEmprestadoPelaMae} em dívida.`); 
+
+                            }
                         }
+                        console.log('------------------------------------------------------------');
+                        console.log('');
                     }
-                    console.log('------------------------------------------------------------');
-                    console.log('');
-                }
+                } 
             }
         } 
     }

@@ -66,17 +66,17 @@ Métodos os funções para se trabalhar com arrays.
 7. Se agora a pessoa já for maior de idade, chamar o método ir ao mercado. 
 
 ## Exercício 02
-1. Quando a pessoa tiver 18 anos ou mais ela precisa ter uma rotina mensal de trabalho e compras. Considerando que o mês tem 30 dias, a pessoa deve trabalhar todos os dias. 
+1. Quando a pessoa tiver 18 anos ou mais ela precisa ter uma rotina mensal de trabalho e compras. Considerando que o mês tem 30 dias, a pessoa deve trabalhar todos os dias. OK!
 
-2. Ela deve ter dinheiro o suficiente para fazer compras pelo menos uma vez a cada 5 dias, incluindo finais de semana.
+2. Ela deve ter dinheiro o suficiente para fazer compras pelo menos uma vez a cada 5 dias, incluindo finais de semana. OK!
 
 3. Se passarem 5 dias e a pessoa não tiver saldo para realizar a compra, ela deve receber $200 reais emprestado da mãe e fazer a compra. Sempre que ela pegar o dinheiro emprestado, ela deve devolver assim que tiver o saldo suficiente. 
 
 4. Após passar os 30 dias, se a pessoa tiver mais de $300 de saldo, ela deve doar $50 para a caridade. 
 
-2. Esta rotina deve se repetir por 12 meses. -- Dúvida: do while? --
+2. Esta rotina deve se repetir por 12 meses. OK!
 
-3. O valor da compra de mercado deve ser agora, no mínimo, de $50 para que ela compre o necessário para 5 dias. -- OK! --
+3. O valor da compra de mercado deve ser agora, no mínimo, de $50 para que ela compre o necessário para 5 dias. OK!
 
 4. Sempre que a grazi pegar dinheiro emprestado, ela deve armazenar quantas vezes ela pegou dinheiro emprestado e sempre que ela pagar a mãe dela o dinheiro emprestado, ela deve remover 1 deste contador de dinheiro emprestado. 
 

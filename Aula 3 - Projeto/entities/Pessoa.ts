@@ -75,7 +75,7 @@ export class Pessoa {
 
     public CalculaValorDaCompra(): number { 
         const maxGastos = 50; 
-        const minGastos = 10;  
+        const minGastos = 100;  
 
         return Math.ceil(Math.random() * (maxGastos - minGastos) + minGastos);        
     }  
@@ -85,13 +85,7 @@ export class Pessoa {
         this.Carteira = this.Carteira + valorEmprestimo;  
     }
 
-    public Caridade(): string {
-        const saldoMinimoParaCaridade = 300; 
-        if(this.Carteira > saldoMinimoParaCaridade)
-            this.Carteira = this.Carteira - 50;
-            return `Você doou dinheiro à caridade. Seu saldo atual é de ${this.Carteira}`;
-            // retornar o valor da caridade
-        }
+    public Caridade(dinheiro): number {
+        return this.Carteira = this.Carteira - dinheiro;  
     }
-
-
+}
