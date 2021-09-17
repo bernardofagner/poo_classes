@@ -9,6 +9,8 @@ class CicloDaVida {
     private CicloDaPessoa(pessoa: Pessoa): void {
         let vivo = true;         
         
+        console.log('');
+        console.log(' --------------------------------------------INICIO-------------------------------------------- ');
         while (vivo) { 
             if (this.ValidarFaseAdulta(pessoa.ObterIdade())){
                 this.FaseDeVidaAdulta(pessoa); 
@@ -58,19 +60,21 @@ class CicloDaVida {
                     console.log('');
                 }
 
-                // CHAMAR O MÉTODO CARIDADE
-                if(dias%30 === 0){
-                    console.log('');
-                    console.log(' ----------------------- CARIDADE -----------------------');
+                //CHAMAR O MÉTODO CARIDADE
+                    if(dias%30 === 0){
+                        console.log('');
+                        console.log(' -------------------------------------------CARIDADE------------------------------------------- ');
 
-                    if(pessoa.ObterSaldoCarteira() >= salarioMinimoParaCaridade){
-                        let saldoAntesDaCaridade = pessoa.ObterSaldoCarteira();
-                        pessoa.Caridade(dinheiroCaridade);
-                        console.log(`Você doou R$${dinheiroCaridade} à caridade. Seu saldo antes da caridade era de R$${saldoAntesDaCaridade} e agora você possui R$${pessoa.ObterSaldoCarteira()}.`);
+                        if(pessoa.ObterSaldoCarteira() >= salarioMinimoParaCaridade){
+                            let saldoAntesDaCaridade = pessoa.ObterSaldoCarteira();
+                            pessoa.Caridade(dinheiroCaridade);
+                            console.log(`Você doou R$${dinheiroCaridade} à caridade. Seu saldo antes da caridade era de R$${saldoAntesDaCaridade} e agora você possui R$${pessoa.ObterSaldoCarteira()}.`);
+                        }
+                        
+                        console.log(' ---------------------------------------------------------------------------------------------- ');
+                        console.log('');
                     }
-                    
-                    console.log(' --------------------------------------------------------');
-                    console.log('');
+
                 // REALIZAÇÃO DE COMPRAS
                     if(dias%5 === 0){
                         const valorDaCompra = pessoa.CalculaValorDaCompra(); 
@@ -78,7 +82,7 @@ class CicloDaVida {
                         console.log(`Salário acumulado na carteira: R$${salarioAntesDaCompra}`);
 
                         console.log('');
-                        console.log(' --------------------- IDA AO MERCADO ---------------------');
+                        console.log(' -------------------------------------------MERCADO-------------------------------------------- ');
 
                         if(salarioAntesDaCompra >= valorDaCompra) {
                             pessoa.DefinirSaldoCarteira(-valorDaCompra);
@@ -109,10 +113,10 @@ class CicloDaVida {
 
                             }
                         }
-                        console.log('------------------------------------------------------------');
+                        console.log(' ---------------------------------------------------------------------------------------------- ');
                         console.log('');
                     }
-                } 
+                // } 
             }
         } 
     }
