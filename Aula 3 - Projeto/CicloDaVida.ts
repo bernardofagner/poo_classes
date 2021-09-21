@@ -1,6 +1,13 @@
 import { Pessoa } from "./entities/Pessoa";
+import { AcaoSocial } from "./services/AcaoSocial";
 
 class CicloDaVida { 
+    private readonly AcaoSocial: AcaoSocial;
+
+    public constructor (acaoSocial: AcaoSocial) {
+        this.AcaoSocial = acaoSocial; 
+    }
+
     public Genesis(): void { 
         const grazielle = Pessoa.Nascimento('Grazielle', 0)              
         this.CicloDaPessoa(grazielle);
@@ -29,7 +36,7 @@ class CicloDaVida {
         let dinheiroTotalEmprestadoPelaMae = 0; 
         let countQuantidadeEmprestimos = 0; 
         const salarioMinimoParaCaridade = 300;
-        const dinheiroCaridade = 50;  
+        const valorParaDoacao = 50;  
 
         for (let meses = 1; meses <= 1; meses++){
             console.log(pessoa.ObterSaldoCarteira());
@@ -67,8 +74,9 @@ class CicloDaVida {
 
                         if(pessoa.ObterSaldoCarteira() >= salarioMinimoParaCaridade){
                             let saldoAntesDaCaridade = pessoa.ObterSaldoCarteira();
-                            pessoa.Caridade(dinheiroCaridade);
-                            console.log(`Você doou R$${dinheiroCaridade} à caridade. Seu saldo antes da caridade era de R$${saldoAntesDaCaridade} e agora você possui R$${pessoa.ObterSaldoCarteira()}.`);
+                            this.AcaoSocial.RealizarDoacaoParaCaridade(pessoa.ObterNome(), valorParaDoacao);
+                            // pessoa.Caridade(valorParaDoacao);
+                            console.log(`Você doou R$${valorParaDoacao} à caridade. Seu saldo antes da caridade era de R$${saldoAntesDaCaridade} e agora você possui R$${pessoa.ObterSaldoCarteira()}.`);
                         }
                         
                         console.log(' ---------------------------------------------------------------------------------------------- ');
@@ -130,7 +138,7 @@ class CicloDaVida {
     }
 }
 
-new CicloDaVida().Genesis(); 
+new CicloDaVida(new AcaoSocial()).Genesis(); 
 
 
 

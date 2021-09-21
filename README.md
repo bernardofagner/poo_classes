@@ -192,4 +192,9 @@ Métodos os funções para se trabalhar com arrays.
 ```
 
 
+ ## Exercício 03
+ 1. Implementar o método trabalhar dentro da classe MundoCapitalista seguindo as mesmas diretrizes da AcaoSocial; 
  
+ 2. Remover a implementação do método Trabalhar da classe Pessoa; 
+
+ 3. Alterar o código em todos os códigos que chama o método Trabalhar, para chamar via classe MundoCapitalista em vez da classe Pessoa; 
